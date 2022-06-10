@@ -14,7 +14,7 @@
   
   ## Discription
 
-  This application gives users a fast and easy way to track their money. It allows them to access information at anytime, even without a connection to the internet.
+  This application gives users a fast and easy way to track their money. It allows them to access information at anytime, even without a connection to the internet. This project makes use of the following Node Package Modules; compression, express, mongoose, morgan, and nodemon*.
   
   ## Installation
   
