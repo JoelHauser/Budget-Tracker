@@ -1,5 +1,3 @@
-const { response } = require("express");
-
 const CACHE_NAME = "my-cache";
 const DATA_CACHE_NAME = "data-cache";
 
