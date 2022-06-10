@@ -1,5 +1,5 @@
-const CACHE_NAME = "my-cache";
-const DATA_CACHE_NAME = "data-cache";
+const CACHE_NAME = "my-cache-v1";
+const DATA_CACHE_NAME = "data-cache-v1";
 
 const FILES_TO_CACHE = [
   "/",
@@ -19,22 +19,22 @@ const FILES_TO_CACHE = [
 ];
 
 self.addEventListener("install", function (evt) {
-  evt.waitUntill(
+  evt.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      console.log("Files pre-cached");
-      return caches.addAll(FILES_TO_CACHE);
+      console.log("Your files were pre-cached successfully!");
+      return cache.addAll(FILES_TO_CACHE);
     })
   );
   self.skipWaiting();
 });
 
-self.addEventListener("active", function (evt) {
-  evt.waitUntill(
+self.addEventListener("activate", function (evt) {
+  evt.waitUntil(
     caches.keys().then((keyList) => {
       return Promise.all(
         keyList.map((key) => {
           if (key !== CACHE_NAME && key !== DATA_CACHE_NAME) {
-            console.log("Removing cache data", key);
+            console.log("Removing old cache data", key);
             return caches.delete(key);
           }
         })
@@ -46,7 +46,7 @@ self.addEventListener("active", function (evt) {
 
 self.addEventListener("fetch", function (evt) {
   if (evt.request.url.includes("/api/")) {
-    evt.respondeWith(
+    evt.respondWith(
       caches
         .open(DATA_CACHE_NAME)
         .then((cache) => {
@@ -65,9 +65,9 @@ self.addEventListener("fetch", function (evt) {
     );
     return;
   }
-  evt.respondeWith(
+  evt.respondWith(
     fetch(evt.request).catch(function () {
-      return caches.match(evt.request).then(function (request) {
+      return caches.match(evt.request).then(function (response) {
         if (response) {
           return response;
         } else if (evt.request.headers.get("accept").includes("text/html")) {
