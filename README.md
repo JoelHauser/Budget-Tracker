@@ -27,6 +27,9 @@
   ## Live Website
   [Heroku Link](https://budgettrackerchal19.herokuapp.com/)
 
+  ## Sneak Peek
+  ![Budget Tracker](/public/icons/Capture.PNG)
+
   ## Contribution
 
   
