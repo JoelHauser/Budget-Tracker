@@ -1,5 +1,4 @@
 let db;
-
 const request = indexedDB.open("budget", 1);
 
 request.onupgradeneeded = function (event) {
@@ -53,4 +52,5 @@ function checkDatabase() {
     }
   };
 }
-window.addEventListener('online', checkDatabase);
+
+window.addEventListener("online", checkDatabase);
